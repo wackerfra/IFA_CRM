@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IFA CRM{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .overdue {
+            color: white;
+            background-color: red; /* Styling for overdue follow-ups */
+        }
+
+        footer {
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center;    /* Vertically center */
+            text-align: center;      /* Center-align text */
+            font-size: 14px;
+            color: gray; /* Subtle color for the footer text */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">IFA Gruppenreisen CRM</a>
+        <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/operators/">Operators</a></li>
+                <li class="nav-item"><a class="nav-link" href="/bookings/">Bookings</a></li>
+                <li class="nav-item"><a class="nav-link" href="/reports/">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sales/">Sales</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/">Admin</a></li>
+            </ul>
+             <ul>
+                {% if user.is_authenticated %}
+                        <li>
+                            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" style="background: none; border: none; color: white; cursor: pointer; text-decoration: underline;">Logout</button>
+                            </form>
+                        </li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-4">
+    {% block content %}
+    {% endblock %}
+</div>
+<footer style="alignment-baseline: center">
+        &copy; {{ year }} Frank Wacker. All rights reserved.
+    </footer>
+</body>
+</html>

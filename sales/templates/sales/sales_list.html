@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-4">Sales Activities</h1>
+<a href="{% url 'sales_create' %}" class="btn btn-success mb-3">New Activity</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Operator</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Next Follow-Up</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for activity in sales %}
+        <tr>
+            <td><a href="{% url 'sales_detail' activity.pk %}">{{ activity.title }}</a></td>
+            <td>{{ activity.operator.name }}</td>
+            <td>{{ activity.activity_date }}</td>
+            <td>{{ activity.status }}</td>
+            <td>{{ activity.next_follow_up }}</td>
+            <td>
+                <a href="{% url 'sales_detail' activity.pk %}" class="btn btn-info btn-sm">View</a>
+                <a href="{% url 'sales_update' activity.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'sales_delete' activity.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+            {% if activity.follow_up_due %}
+            <td style="color:red;">overdue</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

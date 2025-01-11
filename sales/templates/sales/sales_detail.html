@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ sale.title }}</h1>
+<p><strong>Operator:</strong> {{ sale.operator }}</p>
+<p><strong>Date:</strong> {{ sale.activity_date }}</p>
+<p><strong>Status:</strong> {{ sale.status }}</p>
+<p><strong>Description:</strong> {{ sale.description }}</p>
+<p><strong>Next Follow-Up:</strong> {{ sale.next_follow_up }}</p>
+<a href="{% url 'sales_list' %}" class="btn btn-secondary">Back to List</a>
+{% endblock %}

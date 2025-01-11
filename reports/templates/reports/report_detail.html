@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ report.name }}</h1>
+<p><strong>Type:</strong> {{ report.get_report_type_display }}</p>
+<p><strong>Generated At:</strong> {{ report.generated_at }}</p>
+
+<h3>Filters:</h3>
+<form method="get" class="mb-4">
+    <label for="start_date">Start Date:</label>
+    <input type="date" name="start_date" value="{{ request.GET.start_date }}">
+    <label for="end_date">End Date:</label>
+    <input type="date" name="end_date" value="{{ request.GET.end_date }}">
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+<h3>Details:</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            {% if report.report_type == 'booking_summary' %}
+                <th>Operator</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Guests</th>
+            {% elif report.report_type == 'sales_summary' %}
+                <th>Title</th>
+                <th>Operator</th>
+                <th>Date</th>
+                <th>Status</th>
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in filtered_data %}
+            <tr>
+                {% if report.report_type == 'booking_summary' %}
+                    <td>{{ data.operator.name }}</td>
+                    <td>{{ data.check_in }}</td>
+                    <td>{{ data.check_out }}</td>
+                    <td>{{ data.number_of_guests }}</td>
+                {% elif report.report_type == 'sales_summary' %}
+                    <td>{{ data.title }}</td>
+                    <td>{{ data.operator.name }}</td>
+                    <td>{{ data.activity_date }}</td>
+                    <td>{{ data.status }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'report_list' %}" class="btn btn-secondary">Back to List</a>
+{% endblock %}
