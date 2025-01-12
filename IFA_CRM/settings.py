@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,12 +85,12 @@ WSGI_APPLICATION = 'IFA_CRM.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ifa_crm_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Pfymw12!',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql',  # Example: PostgreSQL
+        'NAME': config('DB_NAME'),  # Database name
+        'USER': config('DB_USER'),  # Database username
+        'PASSWORD': config('DB_PASSWORD'),  # Database password
+        'HOST': config('DB_HOST'),  # Database host
+        'PORT': config('DB_PORT'),  # Database port
     }
 }
 
