@@ -9,6 +9,7 @@
             <th>Contact Person</th>
             <th>Phone</th>
             <th>City</th>
+            <th>Segment</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -19,6 +20,7 @@
             <td>{{ operator.contact_person }}</td>
             <td>{{ operator.phone }}</td>
             <td>{{ operator.city }}</td>
+            <td>{{ operator.get_segment_label }}</td>
             <td>
                 <a href="{% url 'operator_detail' operator.pk %}" class="btn btn-info btn-sm">View</a>
                 <a href="{% url 'operator_update' operator.pk %}" class="btn btn-warning btn-sm">Edit</a>

@@ -43,3 +43,17 @@ def operator_delete(request, pk):
         operator.delete()
         return redirect('operator_list')
     return render(request, 'operators/operator_confirm_delete.html', {'operator': operator})
+
+@login_required
+def operator_history(request, operator_id):
+    # Get the specific operator
+    operator = Operator.objects.get(id=operator_id)
+
+    # Get all hotel interests connected to the operator
+    interests = operator.operatorinterest_set.select_related('hotel')
+
+    return render(
+        request,
+        'operators/operator_history.html',  # Create this template
+        {'operator': operator, 'interests': interests}
+    )

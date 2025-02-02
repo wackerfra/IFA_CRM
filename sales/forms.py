@@ -7,7 +7,8 @@ class SalesActivityForm(forms.ModelForm):
 
     class Meta:
         model = SalesActivity
-        fields = ['title', 'operator', 'activity_date', 'description', 'status', 'next_follow_up']
+        fields = ['title', 'operator', 'activity_date', 'description', 'status', 'next_follow_up','sales_representative'
+]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

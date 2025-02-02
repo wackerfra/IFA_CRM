@@ -7,4 +7,5 @@ urlpatterns = [
     path('create/', views.operator_create, name='operator_create'),
     path('<int:pk>/update/', views.operator_update, name='operator_update'),
     path('<int:pk>/delete/', views.operator_delete, name='operator_delete'),
+    path('operator/<int:operator_id>/', views.operator_history, name='operator_history'),
 ]

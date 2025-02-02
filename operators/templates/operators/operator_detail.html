@@ -5,6 +5,9 @@
 <p><strong>Phone:</strong> {{ operator.phone }}</p>
 <p><strong>Email:</strong> {{ operator.email }}</p>
 <p><strong>Address:</strong> {{ operator.street }} {{ operator.house_no }}, {{ operator.zip }} {{ operator.city }}, {{ operator.get_country_display }}</p>
+<p><strong>Internet:</strong>{{ operator.internet }}</p>
+<p><strong>Segment:</strong> {{ operator.get_segment_label }}</p>
 <p><strong>Special Conditions:</strong> {{ operator.special_conditions }}</p>
+<a href="{% url 'operator_history' operator.pk %}" class="btn btn-secondary">History</a>
 <a href="{% url 'operator_list' %}" class="btn btn-secondary">Back to List</a>
 {% endblock %}

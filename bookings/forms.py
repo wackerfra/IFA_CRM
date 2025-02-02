@@ -8,7 +8,10 @@ class BookingForm(forms.ModelForm):
     confirmed_at = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
     class Meta:
         model = Booking
-        fields = ['operator', 'check_in', 'check_out', 'number_of_guests', 'total_price', 'option_until', 'confirmed_at', 'cancelation_terms', 'payment_terms']
+        fields = ['operator', 'hotel','double_rooms', 'single_rooms',  'segment',
+                   'check_in', 'check_out', 'number_of_guests', 'total_price', 'option_until',
+                  'confirmed_at', 'cancelation_terms', 'payment_terms','sales_representative'
+]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

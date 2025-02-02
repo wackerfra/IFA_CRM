@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+ <h1>{{ operator.name }}</h1>
+    <p><strong>Contact Person:</strong> {{ operator.contact_person }}</p>
+    <p><strong>Segment:</strong> {{ operator.segment }}</p>
+    <p><strong>Country:</strong> {{ operator.country }}</p>
+
+    <h2>Hotels of Interest:</h2>
+    <ul>
+        {% for interest in interests %}
+            <li>
+                <strong>{{ interest.hotel.name }}</strong><br>
+                Location: {{ interest.hotel.location }}<br>
+                Priority: {{ interest.priority }}<br>
+                Agreement Date: {{ interest.agreement_date|date:"F d, Y" }}
+            </li>
+        {% empty %}
+            <p>No hotels linked to this operator yet.</p>
+        {% endfor %}
+    </ul>
+<a href="{% url 'operator_list' %}" class="btn btn-secondary">Back to List</a>
+<a href="{% url 'operator_detail' operator.pk %}" class="btn btn-warning">Back to Operator</a>
+{% endblock %}

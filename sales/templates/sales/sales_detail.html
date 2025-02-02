@@ -6,5 +6,6 @@
 <p><strong>Status:</strong> {{ sale.status }}</p>
 <p><strong>Description:</strong> {{ sale.description }}</p>
 <p><strong>Next Follow-Up:</strong> {{ sale.next_follow_up }}</p>
+<p><strong>Sales Representative:</strong> {{ sale.sales_representative__username}}</p>
 <a href="{% url 'sales_list' %}" class="btn btn-secondary">Back to List</a>
 {% endblock %}

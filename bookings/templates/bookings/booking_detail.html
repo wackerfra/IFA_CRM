@@ -2,6 +2,10 @@
 {% block content %}
 <h1>Booking Details</h1>
 <p><strong>Operator:</strong> {{ booking.operator }}</p>
+<p><strong>Hotel:</strong> {{ booking.hotel }}</p>
+<p><strong>Segment:</strong> {{ booking.segment }}</p>
+<p><strong>Double Rooms:</strong> {{ booking.double_rooms }}</p>
+<p><strong>Single Rooms:</strong> {{ booking.single_rooms }}</p>
 <p><strong>Check-in:</strong> {{ booking.check_in }}</p>
 <p><strong>Check-out:</strong> {{ booking.check_out }}</p>
 <p><strong>Number of Guests:</strong> {{ booking.number_of_guests }}</p>
@@ -10,5 +14,6 @@
 <p><strong>Confirmed At:</strong> {{ booking.confirmed_at }}</p>
 <p><strong>Cancellation Terms:</strong> {{ booking.cancelation_terms }}</p>
 <p><strong>Payment Terms:</strong> {{ booking.payment_terms }}</p>
+<p><strong>Sales Representative:</strong> {{ booking.sales_representative__username}}</p>
 <a href="{% url 'booking_list' %}" class="btn btn-secondary">Back to List</a>
 {% endblock %}
