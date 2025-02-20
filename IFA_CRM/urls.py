@@ -28,5 +28,5 @@ urlpatterns = [
     path('reports/', include('reports.urls')),
     path('sales/', include('sales.urls')),  # Include sales URLs
     path('users/', include('users.urls')),
-
+    path('sales/', include('sales.urls')),
 ]

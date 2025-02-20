@@ -2,6 +2,23 @@
 {% block content %}
 <h1 class="mb-4">Sales Activities</h1>
 <a href="{% url 'sales_create' %}" class="btn btn-success mb-3">New Activity</a>
+<style>
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<a href="{% url 'hotel_overview' %}" class="button">Hotel Overview</a>
+
 <table class="table table-striped">
     <thead>
         <tr>

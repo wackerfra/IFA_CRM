@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+ <h1>Hotel Season Overview</h1>
+
+   <!-- Filter Form -->
+   <form method="get">
+       <label for="hotel">Select Hotel:</label>
+       <select name="hotel" id="hotel">
+           <option value="">-- All Hotels --</option>
+           {% for hotel in hotels %}
+           <option value="{{ hotel.id }}" {% if hotel.id|stringformat:"s" == selected_hotel_id %}selected{% endif %}>
+               {{ hotel.name }}
+           </option>
+           {% endfor %}
+       </select>
+
+       <label for="date">Filter by Date:</label>
+       <input type="date" name="date" id="date" value="{{ selected_date }}">
+
+       <button type="submit">Filter</button>
+   </form>
+
+   <h2>Seasons</h2>
+
+   {% if filtered_seasons %}
+   <table>
+       <thead>
+           <tr>
+               <th>Season Name</th>
+               <th>Hotel</th>
+               <th>Start Date</th>
+               <th>End Date</th>
+           </tr>
+       </thead>
+       <tbody>
+           {% for season in filtered_seasons %}
+           <tr>
+               <td>{{ season.name }}</td>
+               <td>{{ season.hotel.name }}</td>
+               <td>{{ season.start_date }}</td>
+               <td>{{ season.end_date }}</td>
+           </tr>
+           {% endfor %}
+       </tbody>
+   </table>
+   {% else %}
+   <p>No seasons match the selected filters.</p>
+   {% endif %}
+
+
+{% endblock %}

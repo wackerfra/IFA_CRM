@@ -1,4 +1,6 @@
 from django.db import models
+from users.models import CustomUser
+
 
 class Hotel(models.Model):
     name = models.CharField(max_length=255)  # Hotel name
@@ -41,6 +43,25 @@ class Operator(models.Model):
         ('IT', 'Italy'),
     ]
 
+    COUNTY_CHOICES = [
+        ('BW', 'Baden-Württemberg'),
+        ('BY', 'Bayern'),
+        ('BE', 'Berlin'),
+        ('BB', 'Brandenburg'),
+        ('HB', 'Bremen'),
+        ('HH', 'Hamburg'),
+        ('HE', 'Hessen'),
+        ('MV', 'Mecklenburg-Vorpommern'),
+        ('NI', 'Niedersachsen'),
+        ('NW', 'Nordrhein-Westfalen'),
+        ('RP', 'Rheinland-Pfalz'),
+        ('SL', 'Saarland'),
+        ('SN', 'Sachsen'),
+        ('ST', 'Sachsen-Anhalt'),
+        ('SH', 'Schleswig-Holstein'),
+        ('TH', 'Thüringen')
+    ]
+
     SEGMENT_CHOICES = [
         (11, 'Kat. und feste Grp.'),
         (12, 'Nur feste Grp., mit ZV'),
@@ -67,9 +88,22 @@ class Operator(models.Model):
     house_no = models.CharField(max_length=10)
     zip = models.CharField(max_length=10)
     city = models.CharField(max_length=100)
+    bundesland = models.CharField(
+        max_length=2,
+        choices=COUNTY_CHOICES,
+        default='BW')
+
     country = models.CharField(max_length=2, choices=COUNTRY_CHOICES)
     internet = models.URLField(blank=True, null=True)
     segment = models.IntegerField(choices=SEGMENT_CHOICES, default=7)
+    sales_rep = models.ForeignKey(
+        CustomUser,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="assigned_operators"
+    )
+
     special_conditions = models.TextField(blank=True, null=True)
 
     def __str__(self):

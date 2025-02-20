@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Pricing for {{ hotel.name }}</h1>
+
+{% if upcoming_seasons %}
+    <h2>Upcoming Seasons</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Season Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Room Type</th>
+                <th>Base Price</th>
+                <th>Weekend Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for season in upcoming_seasons %}
+                {% for price in season.price_details.all %}
+                <tr>
+                    <td>{{ season.name }}</td>
+                    <td>{{ season.start_date }}</td>
+                    <td>{{ season.end_date }}</td>
+                    <td>{{ price.room_type }}</td>
+                    <td>{{ price.base_price }}</td>
+                    <td>{{ price.weekend_price }}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No upcoming seasons available for this hotel.</p>
+{% endif %}
+
+{% endblock %}

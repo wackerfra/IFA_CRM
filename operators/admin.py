@@ -8,8 +8,8 @@ class HotelAdmin(admin.ModelAdmin):
 
 @admin.register(Operator)
 class OperatorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'contact_person', 'phone', 'email', 'city', 'country', 'internet', 'segment')
-    search_fields = ('name', 'contact_person', 'email', 'city', 'segment')
+    list_display = ('name', 'contact_person', 'phone', 'email', 'city', 'bundesland','country', 'internet', 'segment', 'sales_rep')
+    search_fields = ('name', 'contact_person', 'email', 'city', 'segment', 'sales_rep')
     list_filter = ('country','segment')
 
 

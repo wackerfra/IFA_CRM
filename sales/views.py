@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import SalesActivity
+from .models import SalesActivity, HotelSeason, Hotel
 from .forms import SalesActivityForm
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from .models import HotelSeasonPricing
+from datetime import date, datetime
+
 
 import csv
 @login_required
@@ -64,3 +67,55 @@ def export_sales_csv(request):
         writer.writerow([sale.activity_date, sale.description, sale.get_status_display(), sale.next_follow_up, sale.follow_up_due])
 
     return response
+
+@login_required
+def hotel_pricing_view(request, hotel_id):
+    # Get the hotel or return a 404 if it doesn't exist
+    hotel = get_object_or_404(Hotel, id=hotel_id)
+
+    # Get today's date
+    today = date.today()
+
+    # Query all seasons greater than or equal to today for the hotel
+    upcoming_seasons = hotel.seasons.filter(start_date__gte=today).order_by('start_date')  # Sorted by start_date
+
+    return render(request, 'sales/hotel_pricing.html', {
+        'hotel': hotel,
+        'upcoming_seasons': upcoming_seasons,
+    })
+
+@login_required
+def hotel_overview(request):
+    # Retrieve all hotels for the dropdown filter
+    hotels = Hotel.objects.all()
+
+    # Get filters from query parameters
+    selected_hotel_id = request.GET.get('hotel')  # Hotel ID from dropdown
+    selected_date = request.GET.get('date')  # Date from input field
+
+    # Start with all seasons
+    filtered_seasons = HotelSeason.objects.all()
+
+    # Apply hotel filter if selected
+    if selected_hotel_id:
+        filtered_seasons = filtered_seasons.filter(hotel_id=selected_hotel_id)
+
+    # Apply date filter if provided
+    if selected_date:
+        try:
+            filter_date = datetime.strptime(selected_date, '%Y-%m-%d').date()
+            filtered_seasons = filtered_seasons.filter(start_date__lte=filter_date, end_date__gte=filter_date)
+        except ValueError:
+            # Handle invalid date
+            pass
+
+    context = {
+        'hotels': hotels,
+        'filtered_seasons': filtered_seasons,
+        'selected_hotel_id': selected_hotel_id,
+        'selected_date': selected_date,
+    }
+    return render(request, 'sales/hotel_overview.html', context)
+
+
+
